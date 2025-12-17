@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGS - Treinamento Motores Elétricos e MCA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #000; 
+            color: #fff; 
+            line-height: 1.7; 
+            padding: 15px; 
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: #111; 
+            border-radius: 15px; 
+            overflow: hidden; 
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); 
+        }
+        .header { 
+            background: #000; 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-bottom: 6px solid #FFD700; 
+        }
+        .logo-svg { width: 220px; height: auto; margin: 0 auto; display: block; }
+        .title { margin-top: 30px; font-size: 2rem; color: #FFD700; font-weight: bold; }
+        .nav { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 12px; 
+            padding: 25px 15px; 
+            background: #000; 
+        }
+        .nav button { 
+            background: #1a1a1a; 
+            color: #fff; 
+            border: 2px solid #FFD700; 
+            padding: 14px 22px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            transition: all 0.3s; 
+            font-size: 1rem;
+        }
+        .nav button:hover { 
+            background: #FFD700; 
+            color: #000; 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.5); 
+        }
+        .section { 
+            display: none; 
+            padding: 30px; 
+            animation: fadeIn 0.6s; 
+        }
+        .section.active { display: block; }
+        h3 { color: #FFD700; font-size: 1.9rem; margin: 30px 0 18expansion; border-bottom: 2px solid #333; padding-bottom: 10px; }
+        h4 { color: #FFD700; margin: 18px 0 10px; font-size: 1.4rem; }
+        p, li { margin-bottom: 14px; font-size: 1.1rem; text-align: justify; }
+        .highlight { background: #FFD700; color: #000; padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #1a1a1a; font-size: 0.95rem; }
+        th, td { border: 1px solid #FFD700; padding: 12px; text-align: center; }
+        th { background: #FFD700; color: #000; font-weight: bold; }
+        .alert { background: #1a1a1a; padding: 20px; margin: 20px 0; border-radius: 10px; border: 1px solid #FFD700; }
+        .steps { background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; list-style: none; }
+        .steps li { padding: 8px; border-left: 4px solid #FFD700; margin: 5px 0; }
+        #quiz-container { display: none; background: #111; padding: 30px; border-radius: 15px; border: 3px solid #FFD700; margin: 30px; }
+        .quiz-header { text-align: center; margin-bottom: 25px; }
+        .progress-bar { height: 12px; background: #333; border-radius: 6px; overflow: hidden; margin: 15px 0; }
+        #progress-fill { height: 100%; background: #FFD700; width: 0; transition: width 0.5s ease; }
+        .question { font-size: 1.4rem; color: #FFD700; margin-bottom: 20px; font-weight: bold; }
+        .tip { background: #FFD700; color: #000; padding: 10px; border-radius: 5px; margin: 10px 0; font-style: italic; }
+        .options { display: grid; gap: 14px; }
+        .option { background: #1a1a1a; padding: 16px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; font-size: 1.1rem; }
+        .option:hover { border-color: #FFD700; transform: scale(1.02); }
+        .option.correct { background: #003300; border-color: #00ff00; color: #00ff00; }
+        .option.incorrect { background: #330000; border-color: #ff0000; color: #ff6666; }
+        .feedback { font-size: 1.2rem; margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .quiz-controls { text-align: center; margin-top: 30px; }
+        .quiz-controls button { background: #FFD700; color: #000; border: none; padding: 14px 30px; margin: 0 10px; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .quiz-controls button:disabled { background: #555; opacity: 0.6; cursor: not-allowed; }
+        #score, #timer { font-size: 1.3rem; color: #FFD700; margin: 10px 0; font-weight: bold; }
+        #certificate { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 40px; border-radius: 15px; text-align: center; box-shadow: 0 0 50px rgba(255,215,0,0.8); z-index: 1000; max-width: 400px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .nav button { padding: 10px 16px; font-size: 0.9rem; }
+            .title { font-size: 1.6rem; }
+            h3 { font-size: 1.6rem; }
+            .question { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <svg class="logo-svg" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 45 L35 20 L60 45 L48 45 L48 70 L36 70 L36 45 Z" fill="#FFD700"/>
+                <text x="70" y="55" font-family="Arial Black" font-size="52" fill="#FFD700" font-weight: bold">MGS</text>
+                <text x="70" y="75" font-family="Arial" font-size="22" fill="#aaa" font-weight: bold">TRAINING</text>
+            </svg>
+            <h2 class="title">Conceitos de Motores Elétricos e Identificação de Falhas por MCA</h2>
+        </header>
+
+        <nav class="nav">
+            <button onclick="showSection('intro')">Introdução</button>
+            <button onclick="showSection('predictive')">Manutenção Preditiva</button>
+            <button onclick="showSection('basics')">Conceitos</button>
+            <button onclick="showSection('ac')">Motores AC</button>
+            <button onclick="showSection('dc')">Motores CC</button>
+            <button onclick="showSection('failures')">Falhas Elétricas</button>
+            <button onclick="showSection('tests')">Testes</button>
+            <button onclick="showSection('mca-tests')">Ensaios MCA</button>
+            <button onclick="showSection('mca')">MCA Geral</button>
+            <button onclick="showSection('ieee')">Bônus - Normas IEEE</button>
+            <button onclick="startQuiz()">Quiz Divertido 🎮</button>
+        </nav>
+
+        <main id="content">
+            <section id="intro" class="section active">
+                <h3>INTRODUÇÃO</h3>
+                <p>Os <span class="highlight">motores elétricos</span> consomem <strong>40%</strong> da energia no Brasil. Na indústria, até <strong>80%</strong>.</p>
+                <p>Um programa de <span class="highlight">manutenção preditiva</span> reduz consumo em <strong>10% a 14%</strong> e evita paradas.</p>
+
+                <div class="alert">
+                    <h4>PRINCIPAIS CAUSAS DE INTERRUPÇÃO NA PRODUÇÃO</h4>
+                    <table>
+                        <tr><th>Causa</th><th>% de Paradas</th></tr>
+                        <tr><td><strong>Falhas Elétricas</strong></td><td><strong>45%</strong></td></tr>
+                        <tr><td>Falhas Mecânicas</td><td>30%</td></tr>
+                        <tr><td>Falta de Matéria-Prima</td><td>15%</td></tr>
+                        <tr><td>Outros</td><td>10%</td></tr>
+                    </table>
+                    <p><strong>Falhas elétricas são a #1 causa</strong> de paradas não planejadas.</p>
+                </div>
+            </section>
+
+            <section id="predictive" class="section">
+                <h3>MANUTENÇÃO PREDITIVA</h3>
+                <p>A <span class="highlight">manutenção preditiva</span> usa dados para prever falhas antes que ocorram.</p>
+                <h4>Benefícios</h4>
+                <ul>
+                    <li>Redução de <strong>70%</strong> em paradas não planejadas</li>
+                    <li>Aumento de <strong>25%</strong> na vida útil do motor</li>
+                    <li>Economia de <strong>8-12%</strong> em energia</li>
+                </ul>
+                <h4>Técnicas Preditivas</h4>
+                <table>
+                    <tr><th>Técnica</th><th>Detecta</th></tr>
+                    <tr><td><strong>MCA</strong></td><td>Falhas elétricas (curto, aterramento)</td></tr>
+                    <tr><td>Análise de Vibração</td><td>Rolamentos, desbalanceamento</td></tr>
+                    <tr><td>Termografia</td><td>Sobreaquecimento</td></tr>
+                    <tr><td>Análise de Óleo</td><td>Desgaste mecânico</td></tr>
+                </table>
+                <p><strong>MCA é a mais eficaz para falhas elétricas.</strong></p>
+            </section>
+
+            <section id="basics" class="section">
+                <h3>CONCEITOS BÁSICOS</h3>
+                <ul>
+                    <li><strong>Corrente (I):</strong> Fluxo de elétrons → <span class="highlight">Ampére (A)</span></li>
+                    <li><strong>Tensão (V):</strong> Diferença de potencial → <span class="highlight">Volts (V)</span></li>
+                    <li><strong>Resistência (R):</strong> Oposição → <span class="highlight">Ohms (Ω)</span></li>
+                    <li><strong>Indutância (L):</strong> Campo magnético → <span class="highlight">Henry (H)</span></li>
+                    <li><strong>Ângulo de Fase:</strong> Diferença entre ondas → <span class="highlight">0° a 90°</span></li>
+                </ul>
+                <h4>Conversão de Potência</h4>
+                <table>
+                    <tr><th>De</th><th>×</th><th>Para</th></tr>
+                    <tr><td>CV</td><td>0,736</td><td>kW</td></tr>
+                    <tr><td>HP</td><td>0,746</td><td>kW</td></tr>
+                    <tr><td>kW</td><td>1,341</td><td>HP</td></tr>
+                    <tr><td>5 CV</td><td>—</td><td>3,68 kW</td></tr>
+                </table>
+            </section>
+
+            <section id="ac" class="section">
+                <h3>MOTORES AC - TIPOS E FUNCIONAMENTO</h3>
+                <p>Motores de Corrente Alternada (AC) são os mais comuns na indústria, operando com corrente que alterna direção. Funcionam por indução eletromagnética, sem contato direto com escovas.</p>
+                <h4>Tipos Principais</h4>
+                <table>
+                    <tr><th>Tipo</th><th>Princípio</th><th>Aplicações</th><th>Exemplo</th><th>Vantagens</th></tr>
+                    <tr><td><strong>Indução de Gaiola de Esquilo</strong></td><td>Rotor com barras de alumínio/cobre induzidas pelo estator</td><td>Bombas, ventiladores, esteiras</td><td>WEG 10 CV, 380V, 4 pólos (1750 RPM)</td><td>Robusto, barato, baixa manutenção</td></tr>
+                    <tr><td><strong>Indução com Rotor Bobinado</strong></td><td>Rotor com enrolamentos conectados a anéis coletores</td><td>Guindastes, moinhos (controle de partida)</td><td>ABB 50 kW, 6600V</td><td>Alta partida de torque, velocidade variável</td></tr>
+                    <tr><td><strong>Síncrono</strong></td><td>Rotor gira sincronizado com campo magnético do estator</td><td>Compressores, geradores, altas potências</td><td>Siemens 500 kW, 6.6kV, 1500 RPM</td><td>Alta eficiência, fator de potência corrigível</td></tr>
+                    <tr><td><strong>Monofásico</strong></td><td>Uma fase, com capacitor para partida</td><td>Ferramentas domésticas, pequenos equipamentos</td><td>Trapp 1 CV, 220V</td><td>Simples para baixa potência</td></tr>
+                </table>
+                <p><strong>Dica:</strong> Velocidade síncrona = (120 × f) / p (f = frequência, p = pólos). Ex: 60Hz, 4 pólos = 1800 RPM.</p>
+            </section>
+
+            <section id="dc" class="section">
+                <h3>MOTORES CC - TIPOS E FUNCIONAMENTO</h3>
+                <p>Motores de Corrente Contínua (CC) oferecem controle preciso de velocidade via tensão/armadura. Usam escovas e comutador para inverter corrente no rotor.</p>
+                <h4>Tipos Principais</h4>
+                <table>
+                    <tr><th>Tipo</th><th>Princípio</th><th>Aplicações</th><th>Exemplo</th><th>Vantagens</th></tr>
+                    <tr><td><strong>Série</strong></td><td>Campo e armadura em série: alto torque em baixa velocidade</td><td>Guindastes, tração elétrica, partida de motores</td><td>Baldor 5 HP, 180V, alto torque</td><td>Excelente para cargas variáveis</td></tr>
+                    <tr><td><strong>Shunt (Derivação)</strong></td><td>Campo paralelo à armadura: velocidade constante</td><td>Máquinas-ferramenta, laminadoras</td><td>Leeson 3 kW, 220V, 1750 RPM</td><td>Estável sob carga</td></tr>
+                    <tr><td><strong>Composto</strong></td><td>Série + shunt: equilíbrio torque/velocidade</td><td>Prensas, elevadores</td><td>US Motors 10 HP, composto cumulativo</td><td>Versátil para indústria pesada</td></tr>
+                    <tr><td><strong>Brushless (Sem Escovas)</strong></td><td>Eletrônicos controlam comutação: sem desgaste mecânico</td><td>Drones, CNC, veículos elétricos</td><td>Maxon EC 45, 24V, alta precisão</td><td>Alta eficiência, longa vida útil</td></tr>
+                </table>
+                <p><strong>Dica:</strong> Velocidade ≈ (V - Ia × Ra) / k × Φ (V=tensão, Ra=resistência armadura, Φ=campo).</p>
+                <h4>Comparação AC vs CC</h4>
+                <table>
+                    <tr><th>Aspecto</th><th>AC</th><th>CC</th></tr>
+                    <tr><td>Custo</td><td>Baixo</td><td>Alto</td></tr>
+                    <tr><td>Manutenção</td><td>Baixa (sem escovas)</td><td>Alta (escovas desgastam)</td></tr>
+                    <tr><td>Controle Velocidade</td><td>Precisa VFD</td><td>Nativo via tensão</td></tr>
+                    <tr><td>Eficiência</td><td>Alta em cargas constantes</td><td>Alta em variáveis</td></tr>
+                </table>
+            </section>
+
+            <section id="failures" class="section">
+                <h3>FALHAS ELÉTRICAS COMUNS</h3>
+                <table>
+                    <tr><th>Falha</th><th>Causa</th><th>Sintoma</th><th>Impacto</th></tr>
+                    <tr><td><strong>Curto entre espiras</strong></td><td>Sobrecarga</td><td>Corrente alta</td><td>Queima do enrolamento</td></tr>
+                    <tr><td><strong>Aterramento</strong></td><td>Umidade</td><td>Disjuntor desarma</td><td>Parada total</td></tr>
+                    <tr><td><strong>Desbalanceamento</strong></td><td>Conexão solta</td><td>Vibração</td><td>Sobreaquecimento</td></tr>
+                    <tr><td><strong>Barras quebradas</strong></td><td>Vibração</td><td>Ruído</td><td>Perda de torque</td></tr>
+                    <tr><td><strong>Isolamento fraco</strong></td><td>Envelhecimento</td><td>Faíscas</td><td>Curto-circuito</td></tr>
+                    <tr><td><strong>Curto fase-fase</strong></td><td>Defeito de fabricação</td><td>Fumaça</td><td>Motor queimado</td></tr>
+                </table>
+                <p><strong>45% das falhas são elétricas.</strong></p>
+            </section>
+
+            <section id="tests" class="section">
+                <h3>TESTES TRADICIONAIS</h3>
+                <table>
+                    <tr><th>Teste</th><th>Detecta</th></tr>
+                    <tr><td>Megôhmetro</td><td>Isolamento</td></tr>
+                    <tr><td>Surge Test</td><td>Curto entre espiras</td></tr>
+                </table>
+            </section>
+
+            <section id="mca-tests" class="section">
+                <h3>ENSAIOS DE TESTE MCA - DETALHES PRÁTICOS</h3>
+                <p>O MCA (Análise de Circuito do Motor) é um teste desenergizado (motor desligado) que aplica sinais AC de baixa voltagem (sinusoidais) para medir a resposta do circuito elétrico (RCL: Resistência, Capacitância, Indutância). Dura <strong>menos de 3 minutos</strong> por motor e detecta falhas precoces sem desmontar. Baseado em apostilas técnicas, os ensaios principais incluem:</p>
+                <h4>Passos Gerais para Realizar o Ensaio MCA</h4>
+                <ul class="steps">
+                    <li><strong>Preparação:</strong> Desligue o motor e isole. Conecte o equipamento MCA (ex: ALL-TEST Pro) nos terminais de fase (U, V, W) e terra.</li>
+                    <li><strong>Aquisição de Baseline:</strong> Meça valores iniciais (TVS - Test Value Static) para referência futura.</li>
+                    <li><strong>Testes Sequenciais:</strong> Aplique sinais de 50-400 Hz e registre respostas.</li>
+                    <li><strong>Análise:</strong> Compare com limites (desbalanceamento >2-5% indica falha). Monitore tendências ao longo do tempo.</li>
+                    <li><strong>Relatório:</strong> Gere gráfico de TVS para rastrear degradação.</li>
+                </ul>
+                <h4>Parâmetros e Limites dos Ensaios</h4>
+                <table>
+                    <tr><th>Ensaio/Parâmetro</th><th>O que Mede</th><th>Normal</th><th>Falha Indica</th><th>Como Detecta</th></tr>
+                    <tr><td><strong>Resistência (R)</strong></td><td>Resistência DC das bobinas</td><td>Desbalanceamento ≤2%</td><td>Conexão solta ou curto</td><td>Sinal DC baixo; variação >3% = deterioração</td></tr>
+                    <tr><td><strong>Indutância (L)</strong></td><td>Circuito indutivo (bobinas)</td><td>Desbalanceamento ≤5%; I/F 15-50</td><td>Curto entre espiras ou rotor defeituoso</td><td>Sinal AC variável; compara fases</td></tr>
+                    <tr><td><strong>Impedância (Z)</strong></td><td>Resistência complexa (R + L + C)</td><td>Estável por fase</td><td>Desbalanceamento geral</td><td>Sinais sinusoidais; inclui cabos</td></tr>
+                    <tr><td><strong>Ângulo de Fase (Fi)</strong></td><td>Fator de qualidade do isolamento</td><td>70-90°</td><td>Contaminação ou umidade</td><td><70° = curto; mede capacitância</td></tr>
+                    <tr><td><strong>Capacitância (C)</strong></td><td>Capacitância para terra</td><td>Trendável (influenciada por umidade)</td><td>Isolamento fraco</td><td>Compara com baseline; varia com ambiente</td></tr>
+                    <tr><td><strong>Teste de Isolamento (MegOhms)</strong></td><td>Resistência ao terra</td><td>>100 MΩ</td><td>Aterramento</td><td>Alta voltagem integrada; detecta umidade</td></tr>
+                    <tr><td><strong>TVS (Test Value Static)</strong></td><td>Assinatura estática do motor</td><td>Consistente (independente de rotor)</td><td>Mudança em enrolamentos/rotor</td><td>Compara baseline; patenteado para tendências</td></tr>
+                </table>
+                <div class="alert">
+                    <p><strong>Exemplo Prático:</strong> Em um motor de 10 CV, se desbalanceamento de L >5%, indica curto entre espiras precoce — planeje rebobinamento antes da falha total. Variação >3% no TVS = inspecione cabos/conexões.</p>
+                    <p><strong>Vantagens:</strong> Não destrutivo, testa cabos e MCC, ROI rápido (evita paradas de 45% das falhas).</p>
+                </div>
+            </section>
+
+            <section id="mca" class="section">
+                <h3>MCA - ANÁLISE DE CIRCUITO</h3>
+                <p>O MCA mede <span class="highlight">R, L, Z, Fi</span> sem desmontar o motor, usando equipamentos como o ALL-TEST Pro. Abaixo, explicação completa de **todos os parâmetros medidos pelo ALL-TEST Pro** (baseado em tecnologia patenteada de testes desenergizados com sinal AC/DC de baixa voltagem). Esses parâmetros avaliam enrolamentos, rotor, estator, cabos e isolamento, detectando falhas precoces como curtos, desbalanceamentos e contaminação.</p>
+                <h4>Parâmetros Detalhados do ALL-TEST Pro</h4>
+                <table>
+                    <tr><th>Parâmetro</th><th>Descrição</th><th>O que Detecta</th><th>Valores Normais</th><th>Falha Típica</th></tr>
+                    <tr><td><strong>Resistência (R)</strong></td><td>Medição DC precisa das bobinas com Kelvin clips (até 1 mΩ).</td><td>Conexões soltas, curtos ou desbalanceamentos em fases.</td><td>Desbalanceamento ≤2%; variação <3% da baseline.</td><td>>2% desbalanceamento: conexão ruim ou curto fase-fase.</td></tr>
+                    <tr><td><strong>Impedância (Z)</strong></td><td>Resistência AC complexa (inclui R, L e C) em sinais sinusoidais.</td><td>Desbalanceamentos gerais no circuito, incluindo cabos e MCC.</td><td>Estável entre fases; -49% a -38% em motores de indução.</td><td>Desbalanceamento >1%: falha em enrolamentos ou rotor.</td></tr>
+                    <tr><td><strong>Indutância (L)</strong></td><td>Resposta indutiva das bobinas a sinais AC variáveis.</td><td>Curtos entre espiras, rotor defeituoso ou desbalanceamento.</td><td>Desbalanceamento ≤5%; I/F 15-50.</td><td>>5% desbalanceamento: curto ou barras quebradas no rotor.</td></tr>
+                    <tr><td><strong>Ângulo de Fase (Fi)</strong></td><td>Fator de qualidade (Q) do isolamento, não o PF do motor.</td><td>Contaminação, umidade ou curtos no isolamento.</td><td>70-90° (bom isolamento).</td><td><70°: curto ou contaminação; >90°: perda de indutância.</td></tr>
+                    <tr><td><strong>Resposta Corrente/Frequência (I/F)</strong></td><td>Resposta de corrente em frequências variáveis (50-400 Hz).</td><td>Curtos turn-to-turn, coil-to-coil ou phase-to-phase precoces.</td><td>15-50 (consistente com baseline).</td><td>Variação >10%: falha em desenvolvimento no enrolamento.</td></tr>
+                    <tr><td><strong>Capacitância (C)</strong></td><td>Capacitância do circuito à terra (em mF, µF ou pF).</td><td>Isolamento fraco ou contaminação ambiental.</td><td>Trendável; influenciada por temperatura/umidade.</td><td>Aumento súbito: umidade ou degradação do isolamento.</td></tr>
+                    <tr><td><strong>Resistência de Isolamento à Terra (IR/MegOhms)</strong></td><td>Resistência DC à terra para groundwall.</td><td>Aterramentos ou fraquezas no isolamento à terra.</td><td>>100 MΩ (seguro).</td><td><100 MΩ: risco de falha de segurança; ação imediata.</td></tr>
+                    <tr><td><strong>Test Value Static (TVS)</strong></td><td>Valor patenteado calculado de testes estáticos em 3 fases (algoritmo proprietário).</td><td>Mudanças em estator/rotor, independentemente da posição do rotor.</td><td>Consistente com baseline (de fábrica ou inicial).</td><td>Mudança >3%: deterioração em enrolamentos, rotor ou cabos.</td></tr>
+                    <tr><td><strong>Assinaturas Dinâmicas de Estator e Rotor (para AC <1000V)</strong></td><td>Análise de assinaturas dinâmicas para estator e rotor squirrel-cage.</td><td>Falhas no rotor (bar/anel) ou estator.</td><td>'OK' ou 'Warn'; balanceado.</td><td>'Bad': rotor danificado ou desbalanceamento grave.</td></tr>
+                </table>
+                <div class="alert">
+                    <p><strong>Como Funciona no ALL-TEST Pro:</strong> O dispositivo injeta sinais AC/DC de baixa voltagem (<9V) nos terminais (U,V,W e terra), medindo respostas em <3 min. Use o software MCA para trendear dados e gerar relatórios. TVS é o "impressão digital" do motor — compare baselines para prever falhas.</p>
+                    <p><strong>Dica:</strong> Teste no MCC ou diretamente no motor; desbalanceamentos >2-5% indicam ação imediata.</p>
+                </div>
+            </section>
+
+            <section id="ieee" class="section">
+                <h3>BÔNUS - NORMAS IEEE PARA MCA E TESTES DE MOTORES</h3>
+                <p>As normas IEEE (Institute of Electrical and Electronics Engineers) padronizam testes de motores elétricos, garantindo segurança, precisão e manutenção preditiva. Elas são cruciais para MCA, validando medições como IR, Hipot e análise de circuitos. O processo de desenvolvimento IEEE é rigoroso (anos de revisão por experts). Abaixo, as principais normas aplicáveis a MCA:</p>
+                <h4>Normas Principais e Aplicações</h4>
+                <table>
+                    <tr><th>Norma IEEE</th><th>Descrição</th><th>Aplicação em MCA</th><th>Benefícios</th></tr>
+                    <tr><td><strong>IEEE 43</strong></td><td>Resistência de Isolamento e Índice de Polarização (IR/PI).</td><td>Medição de IR à terra; temperatura corrigida a 40°C.</td><td>Detecta umidade/contaminação precoce; PI >2 indica bom isolamento.</td></tr>
+                    <tr><td><strong>IEEE 56</strong></td><td>Teste de Manutenção Hipot AC.</td><td>Testes de alta voltagem AC para isolamento (não destrutivo em MCA).</td><td>Valida groundwall; evita falhas de 45% em paradas elétricas.</td></tr>
+                    <tr><td><strong>IEEE 95</strong></td><td>Teste Hipot DC (Step Voltage).</td><td>Aumento gradual de voltagem DC; plota corrente para não-linearidades.</td><td>Identifica fraquezas no isolamento; essencial para trend em MCA.</td></tr>
+                    <tr><td><strong>IEEE 112</strong></td><td>Procedimentos de Teste para Motores/Geradores de Indução Polifásicos.</td><td>Testes de desempenho, incluindo impedância e resposta de frequência.</td><td>Base para medições Z, L e I/F no ALL-TEST Pro; avalia eficiência.</td></tr>
+                    <tr><td><strong>IEEE 3002.7</strong></td><td>Práticas Recomendadas para Estudos de Partida de Motores em Sistemas Industriais/Comerciais.</td><td>Análise de corrente de partida, quedas de tensão e impactos no sistema.</td><td>Integra MCA para prever falhas em partida; inclui dados de requisitos e simulações.</td></tr>
+                    <tr><td><strong>IEEE 400-2001</strong></td><td>Guia para Testes de Campo em Sistemas de Cabos Blindados.</td><td>Testes de isolamento em cabos conectados a motores.</td><td>Complementa MCA testando cabos/MCC; detecta falhas em conexões.</td></tr>
+                </table>
+                <div class="alert">
+                    <p><strong>Por Que Usar IEEE em MCA?</strong> Essas normas garantem testes padronizados, reduzindo downtime (até 70% com preditiva) e riscos de segurança. Ex: Em MCA, use IEEE 43 para corrigir IR por temperatura. Referências: IEEE Electrical Insulation Conference (2003) e IEEE Press Series on Power Engineering (2004).</p>
+                    <p><strong>Dica:</strong> Consulte o IEEE Xplore para atualizações; integre com software MCA para relatórios conformes.</p>
+                </div>
+            </section>
+        </main>
+
+        <div id="quiz-container">
+            <div class="quiz-header">
+                <h3>Quiz Divertido: Ensaios MCA 🚀</h3>
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+                <p id="progress-text">Pergunta 1 de XX</p>
+                <p id="score">Acertos: 0%</p>
+                <p id="timer"></p>
+            </div>
+            <div id="question-container"></div>
+            <div class="quiz-controls">
+                <button id="next-btn" disabled>Próxima! ➡️</button>
+                <button id="restart-btn">Voltar ao Início</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay" onclick="closeCertificate()"></div>
+    <div id="certificate">
+        <h3>🏆 Certificado MGS Training</h3>
+        <p><strong>Parabéns, <span id="cert-name">[Seu Nome]</span>!</strong></p>
+        <p>Você completou o Quiz de Ensaios MCA com <span id="cert-score">0%</span> de acerto.</p>
+        <p>Data: <span id="cert-date"></span></p>
+        <p><em>Assinado: MGS Training Team</em></p>
+        <svg style="width:100px; margin:20px auto; display:block;" viewBox="0 0 100 50"><path d="M10 25 L30 10 L50 25 L40 25 L40 40 L30 40 L30 25 Z" fill="#FFD700"/></svg>
+        <button onclick="printCertificate()">Imprimir/Salvar 📄</button>
+        <button onclick="closeCertificate()">Fechar</button>
+    </div>
+
+    <script>
+        // BANCO DE PERGUNTAS ATUALIZADO COM AS NOVAS
+        const allQuestions = [
+            { q: "Qual o nome do ensaio que é necessário girar o eixo do motor em velocidade constante?", o: ["Ensaio dinâmico", "Teste de resistência", "Teste de isolamento", "Rotor"], c: 0, tip: "É o único que precisa do rotor girando!" },
+            { q: "Qual o nome do ensaio que verifica o FD (Fator de Dissipação)?", o: ["Ensaio dinâmico", "Teste de isolamento", "Teste de contaminação", "Estator"], c: 2, tip: "FD é relacionado ao ensaio de contaminação!" },
+            { q: "Qual o ensaio necessário para verificar se o isolamento dos cabos está ruim?", o: ["Resistência", "Isolamento", "Contaminação", "Ângulo de fase"], c: 1, tip: "Pensa no que mede resistência à terra!" },
+            { q: "O que é extremamente importante no ensaio de MCA?", o: ["Verificar e confiar no primeiro ensaio realizado", "Realizar o ensaio no máximo 3 vezes e ignorar variações", "Fazer o ensaio várias vezes e certificar que há repetibilidade nos resultados", "Só testar uma fase"], c: 2, tip: "Repetibilidade é a chave da confiabilidade!" },
+            { q: "O que significa indutância?", o: ["É a capacidade de armazenar energia no campo magnético", "É o campo eletromagnético", "É a oposição à corrente contínua", "É a capacitância do enrolamento"], c: 0, tip: "Lembra da bobina e do campo magnético!" },
+            { q: "No ensaio dinâmico, o que o FD alto indica?", o: ["Isolamento perfeito", "Contaminação ou umidade no enrolamento", "Curto entre espiras", "Conexão solta"], c: 1, tip: "FD mede perdas dielétricas!" },
+            { q: "Por que o ensaio dinâmico precisa girar o eixo?", o: ["Para induzir corrente no rotor e avaliar sua influência", "Para alinhar as bobinas", "Para medir resistência DC", "Para testar o isolamento à terra"], c: 0, tip: "O rotor em movimento muda a assinatura!" },
+            { q: "Se o ângulo de fase estiver muito baixo no teste estático, pode indicar?", o: ["Isolamento bom", "Falha elétrica inicial como variação na indutância", "Alta indutância", "Motor novo"], c: 1, tip: "Fi baixo = problema no isolamento!" },
+            { q: "No MCA, por que repetimos o teste várias vezes?", o: ["Para confirmar que os resultados são consistentes e confiáveis", "Porque o equipamento esquenta", "Para desgastar o isolamento", "Só para                                   preencher relatório"], c: 0, tip: "Sem repetibilidade, não confiamos!" },
+            { q: "No ensaio dinâmico do ALL-TEST Pro, o que acontece com a indutância quando há barras quebradas no rotor?", o: ["A indutância fica mais balanceada", "Aparece desbalanceamento significativo na indutância", "A indutância aumenta em todas as fases", "Não afeta a indutância"], c: 1, tip: "Rotor danificado altera a resposta indutiva!" },
+            { q: "Em caso de contaminação, qual parâmetro é mais sensível no ensaio estático?", o: ["Resistência DC", "fator de dissipação", "Impedância", "I/F"], c: 1, tip: "FD sobe drasticamente com contaminação!" },
+            { q: "Qual a vantagem do ensaio dinâmico em relação ao estático para falhas no rotor?", o: ["O dinâmico detecta defeitos no rotor", "O estático é mais preciso para rotor", "Não há vantagem", "Dinâmico só serve para estator"], c: 0, tip: "Rotor em movimento revela tudo!" },
+            { q: "Quando encontramos variações no ensaio de resistência, o que devemos fazer?", o: ["Verificar se tem sujeira no terminal", "Verificar se a conexão está bem apertada", "Verificar se a ponta de prova está pegando no material condutor do terminal", "Todas acima"], c: 3, tip: "Sempre verifique as conexões antes de concluir!" },
+            { q: "Quando encontramos variação no ensaio de contaminação, o que devemos fazer?", o: ["Verificar se o motor está desenergizado", "Verificar se os parafusos de fixação da base estão bem fixos", "Verificar o posicionamento do terra, se o parafuso ou conexão estão bem conectados ou com algo que dificulte a condução", "Nenhuma ação necessária"], c: 2, tip: "A conexão à terra é crítica nesse ensaio!" },
+            { q: "Em um ensaio onde é encontrado variação em indutância, o que devemos fazer?", o: ["Aceitar e diagnosticar como falha logo de cara", "Realizar mais um ensaio para ter certeza", "Mudar a posição do rotor girando o eixo e refazendo o ensaio várias vezes", "Ignorar a variação"], c: 2, tip: "A posição do rotor influencia a indutância!" },
+            { q: "O que é IF (Corrente frequência)?", o: ["É a contaminação do motor", "É o isolamento do motor", "É a relação entre o aumento de corrente e frequência no circuito", "É a resistência DC"], c: 2, tip: "Mostra como a corrente responde à frequência!" },
+            { q: "O que é reatância capacitiva?", o: ["É a capacidade do circuito de se opor a variações na tensão", "É a capacidade do circuito de se opor a variações na corrente", "É a resistência ôhmica", "É o campo magnético"], c: 0, tip: "Capacitores opõem-se a mudanças rápidas de tensão!" },
+            { q: "O que é reatância indutiva?", o: ["É a capacidade do circuito de se opor a variações na corrente", "É a capacidade do circuito de se opor a variações na tensão", "É a resistência DC", "É a capacitância"], c: 0, tip: "Bobinas opõem-se a mudanças rápidas de corrente!" },
+            { q: "O que é impedância?", o: ["É só o campo eletromagnético", "É parte do ensaio dinâmico", "É o resultado de um cálculo de resistências que existem no circuito (Z = √(R² + (XL − XC)²)", "É apenas resistência DC"], c: 2, tip: "Impedância é a resistência total em AC!" },
+            { q: "Caso encontre variações em ângulo de fase, o que devemos fazer?", o: ["Aceitar e diagnosticar como falha logo de cara", "Realizar mais um ensaio para ter certeza", "Mudar a posição do rotor girando o eixo e refazendo o ensaio várias vezes", "Ignorar"], c: 2, tip: "Posição do rotor pode afetar o ângulo de fase!" },
+            { q: "O que é importante saber antes de realizar o ensaio?", o: ["Motivo de terem solicitado o teste", "Entender o ambiente (se o motor está exposto a umidade, calor excessivo, chuva ou contaminantes no ar)", "Tensão do motor e como é o fluxo de funcionamento dele", "Todas acima"], c: 3, tip: "Contexto é essencial para interpretar corretamente!" },
+            { q: "Se encontrar variações no CCM, o que devemos fazer?", o: ["Condenamos o motor de acordo com o que foi encontrado", "Voltamos outro dia para novos ensaios", "Realizamos vários ensaios para certificar e condenar o motor", "Sinalizamos para o responsável do equipamento a necessidade de um ensaio diretamente na caixa de ligação do motor para certificação da falha"], c: 3, tip: "Primeiro confirme se a falha é no motor ou no cabo!" }
+        ];
+
+        let current = 0, correct = 0, timerInterval, userName, questions = [];
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function startQuiz() {
+            userName = prompt("Qual seu nome para o certificado?", "Técnico MCA") || "Técnico MCA";
+            questions = allQuestions.sort(() => 0.5 - Math.random());
+            document.getElementById('content').style.display = 'none';
+            document.querySelector('.nav').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            current = 0; correct = 0;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[current];
+            document.getElementById('question-container').innerHTML = `
+                <div class="question">${q.q}</div>
+                <div class="tip">Dica: ${q.tip}</div>
+                <div class="options">
+                    ${q.o.map((opt, i) => `<div class="option" onclick="selectAnswer(${i})">${opt}</div>`).join('')}
+                </div>
+                <div id="feedback" class="feedback" style="display:none;"></div>`;
+            document.getElementById('progress-text').textContent = `Pergunta ${current + 1} de ${questions.length}`;
+            document.getElementById('progress-fill').style.width = `${((current + 1)/questions.length)*100}%`;
+            document.getElementById('next-btn').disabled = true;
+            startTimer();
+        }
+
+        function startTimer() {
+            let time = 30;
+            document.getElementById('timer').textContent = `Tempo: ${time}s`;
+            timerInterval = setInterval(() => {
+                time--;
+                document.getElementById('timer').textContent = `Tempo: ${time}s`;
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    selectAnswer(-1);
+                }
+            }, 1000);
+        }
+
+        function selectAnswer(i) {
+            clearInterval(timerInterval);
+            const options = document.querySelectorAll('.option');
+            const correctIdx = questions[current].c;
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === correctIdx) opt.classList.add('correct');
+                if (idx === i && i !== correctIdx) opt.classList.add('incorrect');
+            });
+            if (i === correctIdx) correct++;
+            document.getElementById('next-btn').disabled = false;
+            updateScore();
+        }
+
+        document.getElementById('next-btn').onclick = () => {
+            current++;
+            if (current < questions.length) loadQuestion();
+            else endQuiz();
+        };
+
+        function updateScore() {
+            const perc = Math.round((correct / (current + 1)) * 100);
+            document.getElementById('score').textContent = `Acertos: ${perc}%`;
+        }
+
+        function endQuiz() {
+            const perc = Math.round((correct / questions.length) * 100);
+            document.getElementById('question-container').innerHTML = `
+                <div style="text-align:center;padding:40px;">
+                    <h3 style="color:#FFD700;">Quiz Finalizado!</h3>
+                    <p>Você acertou ${correct} de ${questions.length} (${perc}%)</p>
+                    <button onclick="showCertificate()" style="background:#FFD700;color:#000;padding:15px 30px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;">Gerar Certificado 🏆</button>
+                </div>`;
+            document.getElementById('next-btn').style.display = 'none';
+        }
+
+        function showCertificate() {
+            document.getElementById('cert-name').textContent = userName;
+            document.getElementById('cert-score').textContent = `${correct}/${questions.length} (${Math.round((correct/questions.length)*100)}%)`;
+            document.getElementById('cert-date').textContent = new Date().toLocaleDateString('pt-BR');
+            document.getElementById('certificate').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeCertificate() {
+            document.getElementById('certificate').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function printCertificate() {
+            window.print();
+        }
+
+        document.getElementById('restart-btn').onclick = () => {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            document.querySelector('.nav').style.display = 'flex';
+            showSection('intro');
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showSection('intro');
+        });
+    </script>
+</body>
+</html>
