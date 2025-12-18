@@ -74,244 +74,58 @@
             animation: fadeIn 0.6s; 
         }
         .section.active { display: block; }
-        h3 { 
-            color: #FFD700; 
-            font-size: 1.7rem; 
-            margin: 25px 0 15px; 
-            border-bottom: 2px solid #333; 
-            padding-bottom: 8px; 
-        }
-        h4 { 
-            color: #FFD700; 
-            margin: 16px 0 10px; 
-            font-size: 1.3rem; 
-        }
-        p, li { 
-            margin-bottom: 14px; 
-            font-size: 1.05rem; 
-            text-align: justify; 
-        }
-        .highlight { 
-            background: #FFD700; 
-            color: #000; 
-            padding: 3px 8px; 
-            border-radius: 5px; 
-            font-weight: bold; 
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin: 20px 0; 
-            background: #1a1a1a; 
-            font-size: 0.9rem; 
-            overflow-x: auto;
-            display: block;
-            white-space: nowrap;
-        }
-        th, td { 
-            border: 1px solid #FFD700; 
-            padding: 10px; 
-            text-align: center; 
-        }
-        th { 
-            background: #FFD700; 
-            color: #000; 
-            font-weight: bold; 
-        }
-        .alert { 
-            background: #1a1a1a; 
-            padding: 18px; 
-            margin: 20px 0; 
-            border-radius: 10px; 
-            border: 1px solid #FFD700; 
-        }
-        .steps { 
-            background: #1a1a1a; 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin: 10px 0; 
-            list-style: none; 
-        }
-        .steps li { 
-            padding: 8px; 
-            border-left: 4px solid #FFD700; 
-            margin: 6px 0; 
-        }
+        h3 { color: #FFD700; font-size: 1.7rem; margin: 25px 0 15px; border-bottom: 2px solid #333; padding-bottom: 8px; }
+        h4 { color: #FFD700; margin: 16px 0 10px; font-size: 1.3rem; }
+        p, li { margin-bottom: 14px; font-size: 1.05rem; text-align: justify; }
+        .highlight { background: #FFD700; color: #000; padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #1a1a1a; font-size: 0.9rem; overflow-x: auto; display: block; white-space: nowrap; }
+        th, td { border: 1px solid #FFD700; padding: 10px; text-align: center; }
+        th { background: #FFD700; color: #000; font-weight: bold; }
+        .alert { background: #1a1a1a; padding: 18px; margin: 20px 0; border-radius: 10px; border: 1px solid #FFD700; }
+        .steps { background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; list-style: none; }
+        .steps li { padding: 8px; border-left: 4px solid #FFD700; margin: 6px 0; }
+
+        /* Simulador */
+        .simulator { background: #1a1a1a; padding: 25px; border-radius: 15px; border: 2px solid #FFD700; margin: 20px 0; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: bold; color: #FFD700; }
+        select, input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #FFD700; background: #000; color: #fff; font-size: 1rem; }
+        .phase-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .result-block { margin-top: 20px; padding: 18px; border-radius: 10px; font-size: 1.2rem; text-align: center; font-weight: bold; }
+        .verde { background: #003300; color: #00ff00; border: 2px solid #00ff00; }
+        .amarelo { background: #333300; color: #ffff00; border: 2px solid #ffff00; }
+        .vermelho { background: #330000; color: #ff6666; border: 2px solid #ff0000; }
+        .warning-ccm { background: #330000; color: #ff6666; padding: 15px; border-radius: 10px; margin-top: 15px; font-weight: bold; border: 2px solid #ff0000; }
+        button.analyze { background: #FFD700; color: #000; padding: 14px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 20px; width: 100%; }
 
         /* Quiz */
-        #quiz-container { 
-            display: none; 
-            background: #111; 
-            padding: 25px; 
-            border-radius: 15px; 
-            border: 3px solid #FFD700; 
-            margin: 20px; 
-        }
-        .quiz-header { 
-            text-align: center; 
-            margin-bottom: 25px; 
-        }
-        .progress-bar { 
-            height: 12px; 
-            background: #333; 
-            border-radius: 6px; 
-            overflow: hidden; 
-            margin: 15px 0; 
-        }
-        #progress-fill { 
-            height: 100%; 
-            background: #FFD700; 
-            width: 0; 
-            transition: width 0.5s ease; 
-        }
-        .question { 
-            font-size: 1.3rem; 
-            color: #FFD700; 
-            margin-bottom: 20px; 
-            font-weight: bold; 
-        }
-        .tip { 
-            background: #FFD700; 
-            color: #000; 
-            padding: 10px; 
-            border-radius: 5px; 
-            margin: 12px 0; 
-            font-style: italic; 
-            font-size: 0.95rem;
-        }
-        .options { 
-            display: grid; 
-            gap: 12px; 
-        }
-        .option { 
-            background: #1a1a1a; 
-            padding: 14px; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            border: 2px solid transparent; 
-            transition: all 0.3s; 
-            font-size: 1rem; 
-        }
-        .option:hover { 
-            border-color: #FFD700; 
-            transform: scale(1.02); 
-        }
-        .option.correct { 
-            background: #003300; 
-            border-color: #00ff00; 
-            color: #00ff00; 
-        }
-        .option.incorrect { 
-            background: #330000; 
-            border-color: #ff0000; 
-            color: #ff6666; 
-        }
-        .feedback { 
-            font-size: 1.1rem; 
-            margin: 12px 0; 
-            padding: 10px; 
-            border-radius: 5px; 
-        }
-        .quiz-controls { 
-            text-align: center; 
-            margin-top: 30px; 
-        }
-        .quiz-controls button { 
-            background: #FFD700; 
-            color: #000; 
-            border: none; 
-            padding: 12px 24px; 
-            margin: 8px; 
-            border-radius: 10px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 1rem;
-        }
-        .quiz-controls button:disabled { 
-            background: #555; 
-            opacity: 0.6; 
-            cursor: not-allowed; 
-        }
-        #score, #timer { 
-            font-size: 1.2rem; 
-            color: #FFD700; 
-            margin: 10px 0; 
-            font-weight: bold; 
-        }
+        #quiz-container { display: none; background: #111; padding: 30px; border-radius: 15px; border: 3px solid #FFD700; margin: 30px; }
+        .quiz-header { text-align: center; margin-bottom: 25px; }
+        .progress-bar { height: 12px; background: #333; border-radius: 6px; overflow: hidden; margin: 15px 0; }
+        #progress-fill { height: 100%; background: #FFD700; width: 0; transition: width 0.5s ease; }
+        .question { font-size: 1.3rem; color: #FFD700; margin-bottom: 20px; font-weight: bold; }
+        .tip { background: #FFD700; color: #000; padding: 10px; border-radius: 5px; margin: 12px 0; font-style: italic; font-size: 0.95rem; }
+        .options { display: grid; gap: 12px; }
+        .option { background: #1a1a1a; padding: 14px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.3s; font-size: 1rem; }
+        .option:hover { border-color: #FFD700; transform: scale(1.02); }
+        .option.correct { background: #003300; border-color: #00ff00; color: #00ff00; }
+        .option.incorrect { background: #330000; border-color: #ff0000; color: #ff6666; }
+        .quiz-controls { text-align: center; margin-top: 30px; }
+        .quiz-controls button { background: #FFD700; color: #000; border: none; padding: 12px 24px; margin: 8px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        #score, #timer { font-size: 1.2rem; color: #FFD700; margin: 10px 0; font-weight: bold; }
 
         /* Certificado */
-        #certificate { 
-            display: none; 
-            position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            background: #fff; 
-            color: #000; 
-            padding: 30px; 
-            border-radius: 15px; 
-            text-align: center; 
-            box-shadow: 0 0 50px rgba(255,215,0,0.8); 
-            z-index: 1000; 
-            max-width: 90%; 
-            width: 380px; 
-        }
-        .overlay { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.8); 
-            z-index: 999; 
-        }
+        #certificate { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 0 50px rgba(255,215,0,0.8); z-index: 1000; max-width: 90%; width: 380px; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
 
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(20px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
-
-        /* Responsividade */
-        @media (max-width: 868px) {
-            .title { font-size: 1.6rem; }
-            .logo-svg { width: 150px; }
-            h3 { font-size: 1.5rem; }
-            h4 { font-size: 1.2rem; }
-            p, li { font-size: 1rem; }
-            table { font-size: 0.85rem; }
-            th, td { padding: 8px; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
-            body { padding: 5px; }
-            .header { padding: 20px 15px; }
             .title { font-size: 1.4rem; }
             .logo-svg { width: 130px; }
-            .nav { gap: 8px; padding: 15px 10px; }
-            .nav button { 
-                padding: 10px 12px; 
-                font-size: 0.85rem; 
-                min-width: 120px; 
-                flex: 1 1 120px; 
-            }
+            .nav button { padding: 10px 12px; font-size: 0.85rem; }
             .section { padding: 20px 15px; }
-            h3 { font-size: 1.4rem; margin: 20px 0 12px; }
-            .question { font-size: 1.15rem; }
-            .option { padding: 12px; font-size: 0.95rem; }
-            .quiz-controls button { padding: 10px 20px; font-size: 0.95rem; }
-            #certificate { padding: 25px; width: 95%; }
-            table { 
-                -webkit-overflow-scrolling: touch;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .nav button { 
-                font-size: 0.8rem; 
-                padding: 9px 10px; 
-                min-width: 110px; 
-            }
-            .title { font-size: 1.3rem; }
-            .question { font-size: 1.1rem; }
+            .phase-inputs { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -338,6 +152,7 @@
             <button onclick="showSection('mca')">MCA Geral</button>
             <button onclick="showSection('ieee')">Normas IEEE</button>
             <button onclick="startQuiz()">Quiz Divertido 🎮</button>
+            <button onclick="showSection('simulator')">Simulador MCA ⚙️</button>
         </nav>
 
         <main id="content">
@@ -525,34 +340,110 @@
                     <p><strong>Dica:</strong> Consulte o IEEE Xplore para atualizações; integre com software MCA para relatórios conformes.</p>
                 </div>
             </section>
+
+            <section id="simulator" class="section">
+                <h3>SIMULADOR MCA - ANÁLISE DE ISOLAMENTO</h3>
+                <p>Preencha os dados do ensaio de Resistência de Isolamento (Megôhmetro) para obter o diagnóstico automático.</p>
+
+                <div class="simulator">
+                    <div class="form-group">
+                        <label>O ensaio foi realizado:</label>
+                        <select id="local-teste">
+                            <option value="motor">Diretamente na caixa de ligação do motor</option>
+                            <option value="ccm">No CCM (Centro de Controle de Motores)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tensão nominal do motor:</label>
+                        <select id="tensao-motor">
+                            <option value="220">220V</option>
+                            <option value="380">380V / 440V</option>
+                            <option value="600">600V / 690V</option>
+                            <option value="2300">2,3 kV</option>
+                            <option value="4160">4,16 kV</option>
+                            <option value="6600">6,6 kV</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tensão aplicada no teste:</label>
+                        <select id="tensao-aplicada">
+                            <option value="500">500V</option>
+                            <option value="1000">1000V</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Valores de Isolamento do Motor (MΩ):</label>
+                        <div class="phase-inputs">
+                            <input type="number" id="ir-fase1" placeholder="Fase 1" step="0.1">
+                            <input type="number" id="ir-fase2" placeholder="Fase 2" step="0.1">
+                            <input type="number" id="ir-fase3" placeholder="Fase 3" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Foi realizado teste de isolamento no cabo?</label>
+                        <select id="teste-cabo" onchange="toggleCaboFields()">
+                            <option value="nao">Não</option>
+                            <option value="sim">Sim</option>
+                        </select>
+                    </div>
+
+                    <div id="cabo-fields" style="display:none;">
+                        <div class="form-group">
+                            <label>Tensão aplicada no teste do cabo:</label>
+                            <select id="tensao-cabo">
+                                <option value="500">500V</option>
+                                <option value="1000">1000V</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Valores de Isolamento do Cabo (MΩ):</label>
+                            <div class="phase-inputs">
+                                <input type="number" id="cabo-fase1" placeholder="Fase 1" step="0.1">
+                                <input type="number" id="cabo-fase2" placeholder="Fase 2" step="0.1">
+                                <input type="number" id="cabo-fase3" placeholder="Fase 3" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="analyze" onclick="analisarIsolamento()">Analisar Isolamento ⚡</button>
+
+                    <div id="resultado-motor" class="result-block" style="display:none;"></div>
+                    <div id="resultado-cabo" class="result-block" style="display:none;"></div>
+                    <div id="aviso-ccm" style="display:none;"></div>
+                </div>
+            </section>
         </main>
 
         <div id="quiz-container">
             <div class="quiz-header">
                 <h3>Quiz Divertido: Ensaios MCA 🚀</h3>
                 <div class="progress-bar"><div id="progress-fill"></div></div>
-                <p id="progress-text">Pergunta 1 de XX</p>
+                <p id="progress-text">Pergunta 1 de 22</p>
                 <p id="score">Acertos: 0%</p>
                 <p id="timer"></p>
             </div>
             <div id="question-container"></div>
             <div class="quiz-controls">
-                <button id="next-btn">Próxima! ➡️</button>
+                <button id="next-btn" style="display:inline-block;">Próxima! ➡️</button>
                 <button id="restart-btn">Voltar ao Início</button>
             </div>
         </div>
-    </div>
 
-    <div id="overlay" class="overlay" onclick="closeCertificate()"></div>
-    <div id="certificate">
-        <h3>🏆 Certificado MGS Training</h3>
-        <p><strong>Parabéns, <span id="cert-name">[Seu Nome]</span>!</strong></p>
-        <p>Você completou o Quiz de Ensaios MCA com <span id="cert-score">0%</span> de acerto.</p>
-        <p>Data: <span id="cert-date"></span></p>
-        <p><em>Assinado: MGS Training Team</em></p>
-        <svg style="width:100px; margin:20px auto; display:block;" viewBox="0 0 100 50"><path d="M10 25 L30 10 L50 25 L40 25 L40 40 L30 40 L30 25 Z" fill="#FFD700"/></svg>
-        <button onclick="printCertificate()">Imprimir/Salvar 📄</button>
-        <button onclick="closeCertificate()">Fechar</button>
+        <div id="overlay" class="overlay" onclick="closeCertificate()"></div>
+        <div id="certificate">
+            <h3>🏆 Certificado MGS Training</h3>
+            <p><strong>Parabéns, <span id="cert-name">[Seu Nome]</span>!</strong></p>
+            <p>Você completou o Quiz de Ensaios MCA com <span id="cert-score">0%</span> de acerto.</p>
+            <p>Data: <span id="cert-date"></span></p>
+            <p><em>Assinado: MGS Training Team</em></p>
+            <svg style="width:100px; margin:20px auto; display:block;" viewBox="0 0 100 50"><path d="M10 25 L30 10 L50 25 L40 25 L40 40 L30 40 L30 25 Z" fill="#FFD700"/></svg>
+            <button onclick="printCertificate()">Imprimir/Salvar 📄</button>
+            <button onclick="closeCertificate()">Fechar</button>
+        </div>
     </div>
 
     <script>
@@ -562,12 +453,12 @@
             { q: "Qual o ensaio necessário para verificar se o isolamento dos cabos está ruim?", o: ["Resistência", "Isolamento", "Contaminação", "Ângulo de fase"], c: 1, tip: "Pensa no que mede resistência à terra!" },
             { q: "O que é extremamente importante no ensaio de MCA?", o: ["Verificar e confiar no primeiro ensaio realizado", "Realizar o ensaio no máximo 3 vezes e ignorar variações", "Fazer o ensaio várias vezes e certificar que há repetibilidade nos resultados", "Só testar uma fase"], c: 2, tip: "Repetibilidade é a chave da confiabilidade!" },
             { q: "O que significa indutância?", o: ["É a capacidade de armazenar energia no campo magnético", "É o campo eletromagnético", "É a oposição à corrente contínua", "É a capacitância do enrolamento"], c: 0, tip: "Lembra da bobina e do campo magnético!" },
-            { q: "O que significa Reatância indutiva?", o: ["Oposição à passagem de corrente alternada devido ao campo magnético", "Oposição à corrente contínua", "Armazenamento de energia elétrica", "Resistência ôhmica pura"], c: 0, tip: "É a parte imaginária da impedância!" },
+            { q: "O que significa Reatância indutiva?", o: ["Oposição à variação de corrente no circuito", "Oposição à corrente contínua", "Armazenamento de energia elétrica", "Resistência ôhmica pura"], c: 0, tip: "É a parte imaginária da impedância!" },
             { q: "No ensaio dinâmico, o que o FD alto indica?", o: ["Isolamento perfeito", "Contaminação ou umidade no enrolamento", "Curto entre espiras", "Conexão solta"], c: 1, tip: "FD mede perdas dielétricas!" },
             { q: "Por que o ensaio dinâmico precisa girar o eixo?", o: ["Para induzir corrente no rotor e avaliar sua influência", "Para alinhar as bobinas", "Para medir resistência DC", "Para testar o isolamento à terra"], c: 0, tip: "O rotor em movimento muda a assinatura!" },
             { q: "No MCA, por que repetimos o teste várias vezes?", o: ["Para confirmar que os resultados são consistentes e confiáveis", "Porque o equipamento esquenta", "Para desgastar o isolamento", "Só para preencher relatório"], c: 0, tip: "Sem repetibilidade, não confiamos!" },
             { q: "No ensaio dinâmico do ALL-TEST Pro, o que acontece com a indutância quando há barras quebradas no rotor?", o: ["A indutância fica mais balanceada", "Aparece desbalanceamento significativo na indutância", "A indutância aumenta em todas as fases", "Não afeta a indutância"], c: 1, tip: "Rotor danificado altera a resposta indutiva!" },
-            { q: "Em caso de contaminação, qual parâmetro é mais sensível no ensaio estático?", o: ["Resistência DC", "fator de dissipação", "Impedância", "I/F"], c: 1, tip: "Aumenta a contaminação!" },  
+            { q: "Em caso de contaminação, qual parâmetro é mais sensível no ensaio estático?", o: ["Resistência DC", "fator de dissipação", "Impedância", "I/F"], c: 1, tip: "Aumenta a contaminação!" },
             { q: "Qual a vantagem do ensaio dinâmico em relação ao estático para falhas no rotor?", o: ["O dinâmico detecta defeitos no rotor que o estático não vê claramente", "O estático é mais preciso para rotor", "Não há vantagem", "Dinâmico só serve para estator"], c: 0, tip: "Rotor em movimento revela tudo!" },
             { q: "Quando encontramos variações no ensaio de resistência, o que devemos fazer?", o: ["Verificar se tem sujeira no terminal", "Verificar se a conexão está bem apertada", "Verificar se a ponta de prova está pegando no material condutor do terminal", "Todas acima"], c: 3, tip: "Sempre verifique as conexões antes de concluir!" },
             { q: "Quando encontramos variação no ensaio de contaminação, o que devemos fazer?", o: ["Verificar se o motor está desenergizado", "Verificar se os parafusos de fixação da base estão bem fixos", "Verificar o posicionamento do terra, se o parafuso ou conexão estão bem conectados ou com algo que dificulte a condução", "Nenhuma ação necessária"], c: 2, tip: "A conexão à terra é crítica nesse ensaio!" },
@@ -581,18 +472,20 @@
             { q: "Se encontrar variações no CCM, o que devemos fazer?", o: ["Condenamos o motor de acordo com o que foi encontrado", "Voltamos outro dia para novos ensaios", "Realizamos vários ensaios para certificar e condenar o motor", "Sinalizamos para o responsável do equipamento a necessidade de um ensaio diretamente na caixa de ligação do motor para certificação da falha"], c: 3, tip: "Primeiro confirme se a falha é no motor ou no cabo!" }
         ];
 
-        let current = 0, correct = 0, timerInterval, userName = "", questions = [];
+        let current = 0, correct = 0, timerInterval = null, userName = "", questions = [];
 
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const section = document.getElementById(id);
+            if (section) section.classList.add('active');
+            document.getElementById('quiz-container').style.display = 'none';
+            document.querySelector('.nav').style.display = 'flex';
+            document.getElementById('content').style.display = 'block';
         }
 
         function startQuiz() {
             const name = prompt("Qual seu nome para o certificado?", "Técnico MCA");
-            if (name === null || name.trim() === "") {
-                return;
-            }
+            if (name === null || name.trim() === "") return;
             userName = name.trim();
             questions = allQuestions.sort(() => 0.5 - Math.random());
             document.getElementById('content').style.display = 'none';
@@ -605,32 +498,47 @@
         }
 
         function loadQuestion() {
+            clearInterval(timerInterval);
             const q = questions[current];
             document.getElementById('question-container').innerHTML = `
                 <div class="question">${q.q}</div>
                 <div class="tip">Dica: ${q.tip}</div>
                 <div class="options">
                     ${q.o.map((opt, i) => `<div class="option" onclick="selectAnswer(${i})">${opt}</div>`).join('')}
-                </div>
-                <div id="feedback" class="feedback" style="display:none;"></div>`;
+                </div>`;
             document.getElementById('progress-text').textContent = `Pergunta ${current + 1} de ${questions.length}`;
             document.getElementById('progress-fill').style.width = `${((current + 1)/questions.length)*100}%`;
             document.getElementById('next-btn').disabled = true;
-            document.getElementById('next-btn').style.display = 'inline-block';
-            startTimer();
+            document.getElementById('timer').textContent = 'Tempo: 30s';
+            document.getElementById('timer').style.color = '#FFD700';
+            startAnswerTimer();
         }
 
-        function startTimer() {
+        function startAnswerTimer() {
             let time = 30;
-            document.getElementById('timer').textContent = `Tempo: ${time}s`;
             timerInterval = setInterval(() => {
                 time--;
                 document.getElementById('timer').textContent = `Tempo: ${time}s`;
+                if (time <= 10) document.getElementById('timer').style.color = '#ff6666';
                 if (time <= 0) {
                     clearInterval(timerInterval);
-                    selectAnswer(-1);
+                    timeOutAnswer();
                 }
             }, 1000);
+        }
+
+        function timeOutAnswer() {
+            document.getElementById('timer').textContent = 'Tempo esgotado!';
+            const options = document.querySelectorAll('.option');
+            const correctIdx = questions[current].c;
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === correctIdx) opt.classList.add('correct');
+                else opt.classList.add('incorrect');
+            });
+            document.getElementById('next-btn').disabled = false;
+            updateScore();
+            startNextTimer();
         }
 
         function selectAnswer(i) {
@@ -645,13 +553,35 @@
             if (i === correctIdx) correct++;
             document.getElementById('next-btn').disabled = false;
             updateScore();
+            startNextTimer();
         }
 
-        document.getElementById('next-btn').onclick = () => {
+        function startNextTimer() {
+            let time = 10;
+            document.getElementById('timer').textContent = `Tempo para próxima: ${time}s`;
+            document.getElementById('timer').style.color = '#FFD700';
+            timerInterval = setInterval(() => {
+                time--;
+                document.getElementById('timer').textContent = `Tempo para próxima: ${time}s`;
+                if (time <= 5) document.getElementById('timer').style.color = '#ff6666';
+                if (time <= 0) {
+                    clearInterval(timerInterval);
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        function nextQuestion() {
+            clearInterval(timerInterval);
             current++;
-            if (current < questions.length) loadQuestion();
-            else endQuiz();
-        };
+            if (current < questions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+
+        document.getElementById('next-btn').onclick = nextQuestion;
 
         function updateScore() {
             const perc = Math.round((correct / (current + 1)) * 100);
@@ -661,10 +591,9 @@
         function endQuiz() {
             clearInterval(timerInterval);
             const perc = Math.round((correct / questions.length) * 100);
-            let finalHTML = `
-                <div style="text-align:center;padding:40px;">
-                    <h3 style="color:#FFD700;">Quiz Finalizado!</h3>
-                    <p>Você acertou ${correct} de ${questions.length} (${perc}%)</p>`;
+            let finalHTML = `<div style="text-align:center;padding:40px;">
+                <h3 style="color:#FFD700;">Quiz Finalizado!</h3>
+                <p>Você acertou ${correct} de ${questions.length} (${perc}%)</p>`;
             if (perc >= 60) {
                 finalHTML += `<button onclick="showCertificate()" style="background:#FFD700;color:#000;padding:15px 30px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;margin-top:20px;">Gerar Certificado 🏆</button>`;
             } else {
@@ -673,6 +602,7 @@
             finalHTML += `</div>`;
             document.getElementById('question-container').innerHTML = finalHTML;
             document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('timer').textContent = '';
         }
 
         function showCertificate() {
@@ -700,6 +630,83 @@
             document.querySelector('.nav').style.display = 'flex';
             showSection('intro');
         };
+
+        function toggleCaboFields() {
+            const caboFields = document.getElementById('cabo-fields');
+            caboFields.style.display = document.getElementById('teste-cabo').value === 'sim' ? 'block' : 'none';
+        }
+
+        function analisarIsolamento() {
+            const local = document.getElementById('local-teste').value;
+            const tensaoMotor = document.getElementById('tensao-motor').value;
+            const ir1 = parseFloat(document.getElementById('ir-fase1').value) || 0;
+            const ir2 = parseFloat(document.getElementById('ir-fase2').value) || 0;
+            const ir3 = parseFloat(document.getElementById('ir-fase3').value) || 0;
+            const menorIR = Math.min(ir1, ir2, ir3);
+
+            const limites = {
+                '220': { verde: 100, amarelo: 20 },
+                '380': { verde: 200, amarelo: 50 },
+                '600': { verde: 300, amarelo: 100 },
+                '2300': { verde: 500, amarelo: 200 },
+                '4160': { verde: 1000, amarelo: 300 },
+                '6600': { verde: 1000, amarelo: 500 }
+            };
+
+            const limite = limites[tensaoMotor];
+            let statusMotor = '', corMotor = '';
+
+            if (menorIR > limite.verde) {
+                statusMotor = 'ISOLAMENTO DO MOTOR: BOM';
+                corMotor = 'verde';
+            } else if (menorIR > limite.amarelo) {
+                statusMotor = 'ISOLAMENTO DO MOTOR: EM ATENÇÃO - MONITORAR';
+                corMotor = 'amarelo';
+            } else {
+                statusMotor = 'ISOLAMENTO DO MOTOR: CRÍTICO - AÇÃO IMEDIATA';
+                corMotor = 'vermelho';
+            }
+
+            const resultadoMotor = document.getElementById('resultado-motor');
+            resultadoMotor.innerHTML = `<strong>${statusMotor}</strong><br>Menor valor: ${menorIR.toFixed(1)} MΩ`;
+            resultadoMotor.className = 'result-block ' + corMotor;
+            resultadoMotor.style.display = 'block';
+
+            const resultadoCabo = document.getElementById('resultado-cabo');
+            if (document.getElementById('teste-cabo').value === 'sim') {
+                const c1 = parseFloat(document.getElementById('cabo-fase1').value) || 0;
+                const c2 = parseFloat(document.getElementById('cabo-fase2').value) || 0;
+                const c3 = parseFloat(document.getElementById('cabo-fase3').value) || 0;
+                const menorCabo = Math.min(c1, c2, c3);
+
+                let statusCabo = '';
+                let corCabo = '';
+                if (menorCabo > 100) {
+                    statusCabo = 'ISOLAMENTO DO CABO: BOM';
+                    corCabo = 'verde';
+                } else if (menorCabo > 10) {
+                    statusCabo = 'ISOLAMENTO DO CABO: EM ATENÇÃO';
+                    corCabo = 'amarelo';
+                } else {
+                    statusCabo = 'ISOLAMENTO DO CABO: CRÍTICO';
+                    corCabo = 'vermelho';
+                }
+
+                resultadoCabo.innerHTML = `<strong>${statusCabo}</strong><br>Menor valor: ${menorCabo.toFixed(1)} MΩ`;
+                resultadoCabo.className = 'result-block ' + corCabo;
+                resultadoCabo.style.display = 'block';
+            } else {
+                resultadoCabo.style.display = 'none';
+            }
+
+            const aviso = document.getElementById('aviso-ccm');
+            if (local === 'ccm' && (corMotor === 'amarelo' || corMotor === 'vermelho')) {
+                aviso.innerHTML = '<div class="warning-ccm">ATENÇÃO: Como o teste foi realizado no CCM, é OBRIGATÓRIO realizar o ensaio diretamente na caixa de ligação do motor para confirmação do resultado.</div>';
+                aviso.style.display = 'block';
+            } else {
+                aviso.style.display = 'none';
+            }
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             showSection('intro');
