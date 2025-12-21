@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MGS - Treinamento Motores Elétricos e MCA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Georgia&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -85,7 +87,6 @@
         .steps { background: #1a1a1a; padding: 15px; border-radius: 8px; margin: 10px 0; list-style: none; }
         .steps li { padding: 8px; border-left: 4px solid #FFD700; margin: 6px 0; }
 
-        /* Simulador */
         .simulator { background: #1a1a1a; padding: 25px; border-radius: 15px; border: 2px solid #FFD700; margin: 20px 0; }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: bold; color: #FFD700; }
@@ -98,7 +99,6 @@
         .warning-ccm { background: #330000; color: #ff6666; padding: 15px; border-radius: 10px; margin-top: 15px; font-weight: bold; border: 2px solid #ff0000; }
         button.analyze { background: #FFD700; color: #000; padding: 14px 30px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; margin-top: 20px; width: 100%; }
 
-        /* Quiz */
         #quiz-container { display: none; background: #111; padding: 30px; border-radius: 15px; border: 3px solid #FFD700; margin: 30px; }
         .quiz-header { text-align: center; margin-bottom: 25px; }
         .progress-bar { height: 12px; background: #333; border-radius: 6px; overflow: hidden; margin: 15px 0; }
@@ -112,11 +112,79 @@
         .option.incorrect { background: #330000; border-color: #ff0000; color: #ff6666; }
         .quiz-controls { text-align: center; margin-top: 30px; }
         .quiz-controls button { background: #FFD700; color: #000; border: none; padding: 12px 24px; margin: 8px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1rem; }
-        #score, #timer { font-size: 1.2rem; color: #FFD700; margin: 10px 0; font-weight: bold; }
 
-        /* Certificado */
-        #certificate { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 0 50px rgba(255,215,0,0.8); z-index: 1000; max-width: 90%; width: 380px; }
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999; }
+        #certificate {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1100px;
+            height: 780px;
+            background: linear-gradient(to bottom, #fafafa, #ffffff);
+            color: #000;
+            padding: 60px 80px;
+            border: 15px solid transparent;
+            border-image: linear-gradient(to right, #FFD700, #DAA520) 1;
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255,215,0,0.7);
+            z-index: 1000;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            line-height: 1.6;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #certificate::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iOTAiIHZpZXdCb3g9IjAgMCAyMjAgOTAiPjxwYXRoIGQ9Ik0xMCA0NSBMMzUgMjAgTDYwIDQ1IEw0OCA0NSBMNDggNzAgTDM2IDcwIEwzNiA0NSBaIiBmaWxsPSIjRkZEMDAwIiBvcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iNzAiIHk9IjU1IiBmb250LWZhbWlseT0iQXJpYWwgQmxhY2siIGZvbnQtc2l6ZT0iNTIiIGZpbGw9IiNGRkQwMDAiIGZvbnQtd2VpZ2h0PSJib2xkIiBvcGFjaXR5PSIwLjE1Ij5NR1M8L3RleHQ+PHRleHQgeD0iNzAiIHk9Ijc1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNhYWEiIGZvbnQtd2VpZ2h0PSJib2xkIiBvcGFjaXR5PSIwLjE1Ij5UUkFJTklORzwvdGV4dD48L3N2Zz4=') repeat;
+            opacity: 0.08;
+            z-index: -1;
+        }
+
+        #certificate .logo-cert { width: 160px; margin-bottom: 20px; }
+        #certificate h1 { font-family: 'Playfair Display', serif; font-size: 3.8rem; color: #DAA520; margin: 20px 0; letter-spacing: 5px; text-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        #certificate .subtitle { font-size: 1.6rem; color: #555; margin: 15px 0 40px; font-style: italic; }
+        #certificate .certify-text { font-size: 1.5rem; margin: 30px 0; }
+        #certificate .participant { font-size: 3.2rem; color: #000; margin: 40px 0; font-weight: bold; border-bottom: 5px solid #FFD700; display: inline-block; padding: 0 60px 15px; }
+        #certificate .course-title { font-size: 1.9rem; color: #333; margin: 30px 0; font-weight: bold; line-height: 1.4; }
+        #certificate .score { font-size: 2rem; color: #DAA520; margin: 30px 0; background: rgba(255,215,0,0.1); padding: 12px 30px; border-radius: 12px; display: inline-block; }
+        #certificate .date { font-size: 1.4rem; color: #555; margin: 40px 0; }
+        #certificate .seal { position: absolute; bottom: 80px; right: 100px; width: 140px; height: 140px; background: radial-gradient(circle, #FFD700, #DAA520); border-radius: 50%; border: 4px solid #fff; box-shadow: 0 0 30px rgba(0,0,0,0.4); text-align: center; line-height: 140px; color: #fff; font-weight: bold; font-size: 1.4rem; transform: rotate(-10deg); }
+        #certificate .signature-container { display: flex; justify-content: space-around; margin-top: 60px; padding-top: 30px; border-top: 2px solid #ccc; }
+        #certificate .signature { text-align: center; width: 40%; }
+        #certificate .signature-line { width: 100%; height: 2px; background: #000; margin: 20px 0 10px; }
+        #certificate .signature-name { font-size: 1.4rem; font-weight: bold; }
+        #certificate .signature-role { font-size: 1.1rem; color: #666; font-style: italic; }
+        #certificate .footer-note { margin-top: 50px; font-size: 1rem; color: #777; font-style: italic; }
+        #certificate .btn-container { margin-top: 50px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        #certificate .pdf-btn, #certificate .print-btn { 
+            background: linear-gradient(#FFD700, #DAA520); 
+            color: #000; 
+            padding: 18px 40px; 
+            border: none; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            font-size: 1.3rem; 
+            cursor: pointer; 
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3); 
+            min-width: 250px;
+        }
+        #certificate .back-btn { 
+            background: #555; 
+            color: #fff; 
+            padding: 14px 30px; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 1.1rem; 
+        }
+
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -126,6 +194,21 @@
             .nav button { padding: 10px 12px; font-size: 0.85rem; }
             .section { padding: 20px 15px; }
             .phase-inputs { grid-template-columns: 1fr; }
+            #certificate { width: 95%; height: auto; padding: 40px 20px; }
+            #certificate h1 { font-size: 2.8rem; }
+            #certificate .participant { font-size: 2.5rem; }
+            #certificate .seal { width: 100px; height: 100px; line-height: 100px; font-size: 1rem; right: 30px; bottom: 40px; }
+            #certificate .btn-container { flex-direction: column; align-items: center; }
+            #certificate .pdf-btn, #certificate .print-btn { width: 80%; font-size: 1.2rem; }
+        }
+
+        @media print {
+            body * { visibility: hidden; }
+            #certificate, #certificate * { visibility: visible; }
+            #certificate { position: absolute; left: 0; top: 0; width: 100%; height: auto; border: none; box-shadow: none; padding: 40px 60px; transform: none; margin: 0; }
+            #certificate .btn-container, #certificate .seal { display: none; }
+            #overlay { display: none !important; }
+            @page { size: A4 landscape; margin: 0; }
         }
     </style>
 </head>
@@ -141,18 +224,18 @@
         </header>
 
         <nav class="nav">
-            <button onclick="showSection('intro')">Introdução</button>
-            <button onclick="showSection('predictive')">Manutenção Preditiva</button>
-            <button onclick="showSection('basics')">Conceitos</button>
-            <button onclick="showSection('ac')">Motores AC</button>
-            <button onclick="showSection('dc')">Motores CC</button>
-            <button onclick="showSection('failures')">Falhas Elétricas</button>
-            <button onclick="showSection('tests')">Testes</button>
-            <button onclick="showSection('mca-tests')">Ensaios MCA</button>
-            <button onclick="showSection('mca')">MCA Geral</button>
-            <button onclick="showSection('ieee')">Normas IEEE</button>
+            <button onclick="openSection('intro')">Introdução</button>
+            <button onclick="openSection('predictive')">Manutenção Preditiva</button>
+            <button onclick="openSection('basics')">Conceitos</button>
+            <button onclick="openSection('ac')">Motores AC</button>
+            <button onclick="openSection('dc')">Motores CC</button>
+            <button onclick="openSection('failures')">Falhas Elétricas</button>
+            <button onclick="openSection('tests')">Testes</button>
+            <button onclick="openSection('mca-tests')">Ensaios MCA</button>
+            <button onclick="openSection('mca')">MCA Geral</button>
+            <button onclick="openSection('ieee')">Normas IEEE</button>
             <button onclick="startQuiz()">Quiz Divertido 🎮</button>
-            <button onclick="showSection('simulator')">Simulador MCA ⚙️</button>
+            <button onclick="openSection('simulator')">Simulador MCA ⚙️</button>
         </nav>
 
         <main id="content">
@@ -428,21 +511,60 @@
             </div>
             <div id="question-container"></div>
             <div class="quiz-controls">
-                <button id="next-btn" style="display:inline-block;">Próxima! ➡️</button>
-                <button id="restart-btn">Voltar ao Início</button>
+                <button id="next-btn">Próxima! ➡️</button>
+                <button onclick="backToHome()">Voltar ao Início</button>
             </div>
         </div>
 
-        <div id="overlay" class="overlay" onclick="closeCertificate()"></div>
+        <div id="overlay" class="overlay" onclick="backToHome()"></div>
+
         <div id="certificate">
-            <h3>🏆 Certificado MGS Training</h3>
-            <p><strong>Parabéns, <span id="cert-name">[Seu Nome]</span>!</strong></p>
-            <p>Você completou o Quiz de Ensaios MCA com <span id="cert-score">0%</span> de acerto.</p>
-            <p>Data: <span id="cert-date"></span></p>
-            <p><em>Assinado: MGS Training Team</em></p>
-            <svg style="width:100px; margin:20px auto; display:block;" viewBox="0 0 100 50"><path d="M10 25 L30 10 L50 25 L40 25 L40 40 L30 40 L30 25 Z" fill="#FFD700"/></svg>
-            <button onclick="printCertificate()">Imprimir/Salvar 📄</button>
-            <button onclick="closeCertificate()">Fechar</button>
+            <svg class="logo-cert" viewBox="0 0 220 90" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10 45 L35 20 L60 45 L48 45 L48 70 L36 70 L36 45 Z" fill="#FFD700"/>
+                <text x="70" y="55" font-family="Arial Black" font-size="52" fill="#FFD700" font-weight="bold">MGS</text>
+                <text x="70" y="75" font-family="Arial" font-size="22" fill="#aaa" font-weight="bold">TRAINING</text>
+            </svg>
+
+            <h1>CERTIFICADO DE CONCLUSÃO</h1>
+            <p class="subtitle">Programa de Capacitação Técnica em Manutenção Preditiva</p>
+
+            <p class="certify-text">Concedido a</p>
+            <div class="participant" id="cert-name">[Seu Nome]</div>
+
+            <p class="certify-text">por concluir com êxito o treinamento</p>
+            <p class="course-title">
+                Conceitos de Motores Elétricos e Identificação de Falhas por MCA<br>
+                (Motor Circuit Analysis)
+            </p>
+
+            <div class="score" id="cert-score">0/22 (0%)</div>
+
+            <p class="date">Emitido em: <span id="cert-date"></span></p>
+
+            <div class="seal">APROVADO</div>
+
+            <div class="signature-container">
+                <div class="signature">
+                    <div class="signature-line"></div>
+                    <p class="signature-name">Equipe MGS Training</p>
+                    <p class="signature-role">Instrutor Responsável</p>
+                </div>
+                <div class="signature">
+                    <div class="signature-line"></div>
+                    <p class="signature-name">Diretoria Técnica MGS</p>
+                    <p class="signature-role">Certificação Oficial</p>
+                </div>
+            </div>
+
+            <p class="footer-note">
+                Este certificado comprova proficiência em análise de circuito de motores elétricos (MCA), conforme normas IEEE e práticas internacionais de manutenção preditiva. Válido por 2 anos a partir da data de emissão.
+            </p>
+
+            <div class="btn-container">
+                <button class="pdf-btn" onclick="saveAsPDF()">📄 Salvar como PDF</button>
+                <button class="print-btn" onclick="printCertificate()">🖨️ Imprimir Certificado</button>
+                <button class="back-btn" onclick="backToHome()">Voltar ao Início</button>
+            </div>
         </div>
     </div>
 
@@ -453,7 +575,7 @@
             { q: "Qual o ensaio necessário para verificar se o isolamento dos cabos está ruim?", o: ["Resistência", "Isolamento", "Contaminação", "Ângulo de fase"], c: 1, tip: "Pensa no que mede resistência à terra!" },
             { q: "O que é extremamente importante no ensaio de MCA?", o: ["Verificar e confiar no primeiro ensaio realizado", "Realizar o ensaio no máximo 3 vezes e ignorar variações", "Fazer o ensaio várias vezes e certificar que há repetibilidade nos resultados", "Só testar uma fase"], c: 2, tip: "Repetibilidade é a chave da confiabilidade!" },
             { q: "O que significa indutância?", o: ["É a capacidade de armazenar energia no campo magnético", "É o campo eletromagnético", "É a oposição à corrente contínua", "É a capacitância do enrolamento"], c: 0, tip: "Lembra da bobina e do campo magnético!" },
-            { q: "O que significa Reatância indutiva?", o: ["Oposição à variação de corrente no circuito", "Oposição à corrente contínua", "Armazenamento de energia elétrica", "Resistência ôhmica pura"], c: 0, tip: "É a parte imaginária da impedância!" },
+            { q: "O que significa Reatância indutiva?", o: ["Oposição à passagem de corrente alternada devido ao campo magnético", "Oposição à corrente contínua", "Armazenamento de energia elétrica", "Resistência ôhmica pura"], c: 0, tip: "É a parte imaginária da impedância!" },
             { q: "No ensaio dinâmico, o que o FD alto indica?", o: ["Isolamento perfeito", "Contaminação ou umidade no enrolamento", "Curto entre espiras", "Conexão solta"], c: 1, tip: "FD mede perdas dielétricas!" },
             { q: "Por que o ensaio dinâmico precisa girar o eixo?", o: ["Para induzir corrente no rotor e avaliar sua influência", "Para alinhar as bobinas", "Para medir resistência DC", "Para testar o isolamento à terra"], c: 0, tip: "O rotor em movimento muda a assinatura!" },
             { q: "No MCA, por que repetimos o teste várias vezes?", o: ["Para confirmar que os resultados são consistentes e confiáveis", "Porque o equipamento esquenta", "Para desgastar o isolamento", "Só para preencher relatório"], c: 0, tip: "Sem repetibilidade, não confiamos!" },
@@ -474,18 +596,22 @@
 
         let current = 0, correct = 0, timerInterval = null, userName = "", questions = [];
 
-        function showSection(id) {
+        function openSection(id) {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('certificate').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             const section = document.getElementById(id);
             if (section) section.classList.add('active');
-            document.getElementById('quiz-container').style.display = 'none';
-            document.querySelector('.nav').style.display = 'flex';
+
             document.getElementById('content').style.display = 'block';
+            document.querySelector('.nav').style.display = 'flex';
         }
 
         function startQuiz() {
             const name = prompt("Qual seu nome para o certificado?", "Técnico MCA");
-            if (name === null || name.trim() === "") return;
+            if (!name || name.trim() === "") return;
             userName = name.trim();
             questions = allQuestions.sort(() => 0.5 - Math.random());
             document.getElementById('content').style.display = 'none';
@@ -614,26 +740,31 @@
             document.getElementById('overlay').style.display = 'block';
         }
 
-        function closeCertificate() {
+        function backToHome() {
+            document.getElementById('quiz-container').style.display = 'none';
             document.getElementById('certificate').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
+            openSection('intro');
         }
 
         function printCertificate() {
             window.print();
         }
 
-        document.getElementById('restart-btn').onclick = () => {
-            clearInterval(timerInterval);
-            document.getElementById('quiz-container').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            document.querySelector('.nav').style.display = 'flex';
-            showSection('intro');
-        };
+        function saveAsPDF() {
+            const element = document.getElementById('certificate');
+            const opt = {
+                margin: 0,
+                filename: `Certificado_MCA_${userName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0,10)}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
 
         function toggleCaboFields() {
-            const caboFields = document.getElementById('cabo-fields');
-            caboFields.style.display = document.getElementById('teste-cabo').value === 'sim' ? 'block' : 'none';
+            document.getElementById('cabo-fields').style.display = document.getElementById('teste-cabo').value === 'sim' ? 'block' : 'none';
         }
 
         function analisarIsolamento() {
@@ -653,9 +784,9 @@
                 '6600': { verde: 1000, amarelo: 500 }
             };
 
-            const limite = limites[tensaoMotor];
-            let statusMotor = '', corMotor = '';
+            const limite = limites[tensaoMotor] || limites['380'];
 
+            let statusMotor = '', corMotor = '';
             if (menorIR > limite.verde) {
                 statusMotor = 'ISOLAMENTO DO MOTOR: BOM';
                 corMotor = 'verde';
@@ -667,20 +798,17 @@
                 corMotor = 'vermelho';
             }
 
-            const resultadoMotor = document.getElementById('resultado-motor');
-            resultadoMotor.innerHTML = `<strong>${statusMotor}</strong><br>Menor valor: ${menorIR.toFixed(1)} MΩ`;
-            resultadoMotor.className = 'result-block ' + corMotor;
-            resultadoMotor.style.display = 'block';
+            document.getElementById('resultado-motor').innerHTML = `<strong>${statusMotor}</strong><br>Menor valor: ${menorIR.toFixed(1)} MΩ`;
+            document.getElementById('resultado-motor').className = 'result-block ' + corMotor;
+            document.getElementById('resultado-motor').style.display = 'block';
 
-            const resultadoCabo = document.getElementById('resultado-cabo');
             if (document.getElementById('teste-cabo').value === 'sim') {
                 const c1 = parseFloat(document.getElementById('cabo-fase1').value) || 0;
                 const c2 = parseFloat(document.getElementById('cabo-fase2').value) || 0;
                 const c3 = parseFloat(document.getElementById('cabo-fase3').value) || 0;
                 const menorCabo = Math.min(c1, c2, c3);
 
-                let statusCabo = '';
-                let corCabo = '';
+                let statusCabo = '', corCabo = '';
                 if (menorCabo > 100) {
                     statusCabo = 'ISOLAMENTO DO CABO: BOM';
                     corCabo = 'verde';
@@ -692,11 +820,11 @@
                     corCabo = 'vermelho';
                 }
 
-                resultadoCabo.innerHTML = `<strong>${statusCabo}</strong><br>Menor valor: ${menorCabo.toFixed(1)} MΩ`;
-                resultadoCabo.className = 'result-block ' + corCabo;
-                resultadoCabo.style.display = 'block';
+                document.getElementById('resultado-cabo').innerHTML = `<strong>${statusCabo}</strong><br>Menor valor: ${menorCabo.toFixed(1)} MΩ`;
+                document.getElementById('resultado-cabo').className = 'result-block ' + corCabo;
+                document.getElementById('resultado-cabo').style.display = 'block';
             } else {
-                resultadoCabo.style.display = 'none';
+                document.getElementById('resultado-cabo').style.display = 'none';
             }
 
             const aviso = document.getElementById('aviso-ccm');
@@ -709,7 +837,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            showSection('intro');
+            openSection('intro');
         });
     </script>
 </body>
